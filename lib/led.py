@@ -43,12 +43,13 @@ class Leds:
         self.np.write()
         self.color = color
 
-    def set_all(self, color: Color, transition: bool = True) -> None:
+    def set_all(self, color: Color, transition: bool = True, step_size: int = 5) -> None:
         """
         Sets all LEDs to the given color.
 
         :param color: the color to set to.
         :param transition: whether to transition to the color or not.
+        :param step_size: the amount to change the color by in each step.
         :return: None
         """
 
@@ -62,19 +63,20 @@ class Leds:
 
         while self.color.rgb != color.rgb:
             if r < color.rgb[0]:
-                r = r + 1
+                r = min(r + step_size, color.rgb[0])
             if r > color.rgb[0]:
-                r = r - 1
+                r = max(r - step_size, color.rgb[0])
 
             if g < color.rgb[1]:
-                g = g + 1
+                g = min(g + step_size, color.rgb[1])
             if g > color.rgb[1]:
-                g = g - 1
+                g = max(g - step_size, color.rgb[1])
 
             if b < color.rgb[2]:
-                b = b + 1
+                b = min(b + step_size, color.rgb[2])
             if b > color.rgb[2]:
-                b = b - 1
+                b = max(b - step_size, color.rgb[2])
+
             self.set_all(Color(r, g, b), False)
 
     def clear(self) -> None:

@@ -16,13 +16,13 @@ def main():
         if distance == CONFIG['max_distance']:
             print('Max Distance reached.')
             for led_strip in led_strips:
-                led_strip.set_all(Color.off())
+                led_strip.set_all(Color.off(), step_size=CONFIG['transition_step_size'])
             continue
 
         hue: int = int(distance / CONFIG['max_distance'] * 360)
         color: Color = Color.from_hsv(hue, 1, 1)
         for led_strip in led_strips:
-            led_strip.set_all(color)
+            led_strip.set_all(color, step_size=CONFIG['transition_step_size'])
         print(color.rgb, distance, hue)
 
 

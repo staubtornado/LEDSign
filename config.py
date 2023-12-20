@@ -13,5 +13,6 @@ CONFIG = {
         #     "num_leds": 6
         # }...
     ],
-    "max_distance": 400  # cm
+    "max_distance": 400,  # cm
+    "transition_step_size": 5
 }
