@@ -16,7 +16,7 @@ class Sensor:
         self._trigger = Pin(trigger_pin, Pin.OUT)
         self._echo = Pin(echo_pin, Pin.IN)
 
-    def read(self) -> float:
+    def read(self) -> int:
         """
         Reads the distance from the sensor.
 
@@ -34,4 +34,4 @@ class Sensor:
         while self._echo.value() == 1:
             pass
         end = ticks_us()
-        return min((end - start) / 58, CONFIG['max_distance'])  # type: ignore
+        return int(min((end - start) / 58, CONFIG['max_distance']))  # type: ignore
