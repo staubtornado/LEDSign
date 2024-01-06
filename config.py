@@ -14,5 +14,4 @@ CONFIG: dict = {
         "echo_pin": 8,
         "max_distance": 50  # in cm
     }
-
 }
