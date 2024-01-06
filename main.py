@@ -1,29 +1,28 @@
 __author__ = "Julian Kirchner"
 
+from asyncio import get_event_loop  # type: ignore
+
 from config import CONFIG
-from lib.colors import Color
 from lib.led import Leds
+from lib.modes import error
+from lib.thread import Thread
 from lib.ultra_sonic import Sensor
+from lib.web import run_server
+from lib.wifi import connect_to_wlan
 
 
-def main():
-    sensor: Sensor = Sensor(CONFIG['sensor']['trigger_pin'], CONFIG['sensor']['echo_pin'])
+def main() -> None:
     led_strips: list[Leds] = [Leds(strip['num_leds'], strip['pin']) for strip in CONFIG['led_strips']]
+    sensor = Sensor(CONFIG['sensor']['trigger_pin'], CONFIG['sensor']['echo_pin'])
+    loop = get_event_loop()
 
-    while True:
-        distance: int = int(sensor.read())
+    blink_task = Thread(loop, error, led_strips)
+    blink_task.start()
 
-        if distance == CONFIG['max_distance']:
-            print('Max Distance reached.')
-            for led_strip in led_strips:
-                led_strip.set_all(Color.off(), step_size=CONFIG['transition_step_size'])
-            continue
+    connect_to_wlan(CONFIG['network']['ssid'], CONFIG['network']['password'])
 
-        hue: int = int(distance / CONFIG['max_distance'] * 360)
-        color: Color = Color.from_hsv(hue, 1, 1)
-        for led_strip in led_strips:
-            led_strip.set_all(color, step_size=CONFIG['transition_step_size'])
-        print(color.rgb, distance, hue)
+    blink_task.cancel()
+    run_server(loop, led_strips, sensor)
 
 
 if __name__ == '__main__':

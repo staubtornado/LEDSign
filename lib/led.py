@@ -1,14 +1,9 @@
 __author__ = "Julian Kirchner"
 
 
-try:
-    from thonny.plugins.micropython.base_api_stubs.machine import Pin
-    from thonny.plugins.micropython.base_api_stubs.neopixel import NeoPixel
-    from thonny.plugins.micropython.base_api_stubs.utime import sleep
-except ImportError:
-    from machine import Pin  # type: ignore
-    from neopixel import NeoPixel  # type: ignore
-    from utime import sleep  # type: ignore
+from machine import Pin  # type: ignore
+from neopixel import NeoPixel  # type: ignore
+from asyncio import sleep  # type: ignore
 
 from lib.colors import Color
 
@@ -41,52 +36,51 @@ class Leds:
 
         self.np[led] = color
         self.np.write()
-        self.color = color
 
-    def set_all(self, color: Color, transition: bool = True, step_size: int = 5) -> None:
+    async def set_all(self, color: Color, transition: bool = True, steps: int = 100) -> None:
         """
         Sets all LEDs to the given color.
 
         :param color: the color to set to.
         :param transition: whether to transition to the color or not.
-        :param step_size: the amount to change the color by in each step.
+        :param steps: the number of steps in the transition.
         :return: None
         """
+
+        def interpolate_color(color1, color2, ratio):
+            r = color1[0] * (1 - ratio) + color2[0] * ratio
+            g = color1[1] * (1 - ratio) + color2[1] * ratio
+            b = color1[2] * (1 - ratio) + color2[2] * ratio
+            return int(r), int(g), int(b)
+
+        def create_fade(rgb1, rgb2, _steps):
+            colors = []
+            for j in range(_steps + 1):
+                colors.append(interpolate_color(rgb1, rgb2, j / _steps))
+                sleep(0)
+            return colors
 
         if not transition:
             for i in range(self.num_leds):
                 self.set_led(i, color.rgb)
+                await sleep(0)
             self.color = color
             return
 
-        r, g, b = self.color.rgb
+        fade = create_fade(self.color.rgb, color.rgb, steps)
+        for rgb in fade:
+            for i in range(self.num_leds):
+                self.set_led(i, rgb)
+                await sleep(0)
+            self.color = Color(*rgb)
 
-        while self.color.rgb != color.rgb:
-            if r < color.rgb[0]:
-                r = min(r + step_size, color.rgb[0])
-            if r > color.rgb[0]:
-                r = max(r - step_size, color.rgb[0])
-
-            if g < color.rgb[1]:
-                g = min(g + step_size, color.rgb[1])
-            if g > color.rgb[1]:
-                g = max(g - step_size, color.rgb[1])
-
-            if b < color.rgb[2]:
-                b = min(b + step_size, color.rgb[2])
-            if b > color.rgb[2]:
-                b = max(b - step_size, color.rgb[2])
-
-            self.set_all(Color(r, g, b), False)
-
-    def clear(self) -> None:
+    async def clear(self) -> None:
         """
         Sets all LEDs to the OFF-Color.
 
         :return: None
         """
-
-        self.set_all(Color.off())
+        await self.set_all(Color.off())
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Leds):

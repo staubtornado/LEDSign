@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raspberry Pi Pico W</title>
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="icon" type="image/x-icon" href="img/pi-logo.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<header>
+    <div id="logo-box">
+        <img src="img/pi-logo.png" alt="">
+        <span>Raspberry Pi Pico W</span>
+    </div>
+    <span>Version {version}</span>
+</header>
+
+<body>
+    <div class="container">
+        <span>Temperature: <span id="temp"></span></span>
+        <br>
+        <span>Network: <span id="network"></span></span>
+        
+        <br>
+        <br>
+
+        <form id="form" action="/submit">
+            <div>
+                <label for="static">
+                    <input type="radio" id="static" name="mode" value="static">
+                    Static Color
+                </label>
+                <label for="blink">
+                    <input type="radio" id="blink" name="mode" value="blink">
+                    Blink
+                </label>
+                <label for="s-blink">
+                    <input type="radio" id="s-blink" name="mode" value="s-blink">
+                    Static Blink
+                </label>
+                <label for="fade">
+                    Fade
+                    <input type="radio" id="fade" name="mode" value="fade">
+                </label>
+                <label for="rave">
+                    Rave
+                    <input type="radio" id="rave" name="mode" value="rave">
+                </label>
+                <label for="distance">
+                    <input type="radio" id="distance" name="mode" value="distance">
+                    Distance Based
+                </label>
+            </div>
+            <br>
+            <label for="color-input"><input type="color" value="#FF0000" id="color-input"/></label>
+        </form>
+    </div>   
+    <script src="js/script.js"></script>
+</body>
+</html>

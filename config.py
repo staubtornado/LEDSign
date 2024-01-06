@@ -1,18 +1,18 @@
-CONFIG = {
+CONFIG: dict = {
+    'network': {
+        'ssid': 'FRITZ!Box 4040 JE',
+        'password': '58620200157781128265'
+    },
+    'led_strips': [
+        {
+            'num_leds': 6,
+            'pin': 20
+        }
+    ],
     "sensor": {
         "trigger_pin": 3,
-        "echo_pin": 8
-    },
-    "led_strips": [
-        {
-            "pin": 20,
-            "num_leds": 6
-        },
-        # {
-        #     "pin": 21,
-        #     "num_leds": 6
-        # }...
-    ],
-    "max_distance": 400,  # cm
-    "transition_step_size": 5
+        "echo_pin": 8,
+        "max_distance": 50  # in cm
+    }
+
 }

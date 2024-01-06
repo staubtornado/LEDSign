@@ -1,5 +1,4 @@
 __author__ = "Julian Kirchner"
-__credits__ = ["Jannis Dickel"]
 
 from config import CONFIG
 
@@ -34,4 +33,4 @@ class Sensor:
         while self._echo.value() == 1:
             pass
         end = ticks_us()
-        return min((end - start) / 58, CONFIG['max_distance'])  # type: ignore
+        return min((end - start) / 58, CONFIG['sensor']['max_distance'])  # type: ignore
