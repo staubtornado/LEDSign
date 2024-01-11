@@ -13,49 +13,89 @@
         <img src="img/pi-logo.png" alt="">
         <span>Raspberry Pi Pico W</span>
     </div>
-    <span>Version {version}</span>
+    <span>Version <span id="version"></span></span>
 </header>
 
 <body>
-    <div class="container">
-        <span>Temperature: <span id="temp"></span></span>
-        <br>
-        <span>Network: <span id="network"></span></span>
-        
-        <br>
-        <br>
+    <div id="infos">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="800px" width="800px" id="Layer_1"
+                 viewBox="0 0 512.001 512.001" xml:space="preserve">
+        <g>
+            <g>
+                <path d="M281.12,353.354V42.221C281.12,18.941,262.18,0,238.899,0c-23.282,0-42.221,18.941-42.221,42.221v311.133    c-26.391,15.093-42.646,42.761-42.756,73.36c-0.078,21.959,8.481,42.96,24.097,59.132c15.624,16.179,36.315,25.453,58.26,26.115    c0.886,0.026,1.767,0.04,2.649,0.04c22.227-0.001,43.14-8.461,59.142-23.987c16.642-16.149,25.806-37.809,25.806-60.992    C323.875,396.291,307.619,368.505,281.12,353.354z M286.905,476.506c-13.496,13.095-31.316,20.003-50.142,19.427    c-17.741-0.534-34.507-8.072-47.21-21.226c-12.701-13.152-19.661-30.176-19.597-47.937c0.093-26.181,14.773-49.723,38.31-61.438    c2.724-1.355,4.444-4.136,4.444-7.177V42.221c0-14.44,11.748-26.188,26.188-26.188c14.44,0,26.188,11.748,26.188,26.188v315.935    c0,3.042,1.721,5.821,4.444,7.177c23.632,11.762,38.311,35.4,38.311,61.689C307.842,445.831,300.407,463.405,286.905,476.506z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M246.915,376.889V93.528c0-4.427-3.589-8.017-8.017-8.017c-4.427,0-8.017,3.589-8.017,8.017v283.361    c-24.2,3.855-42.756,24.866-42.756,50.133c0,27.995,22.777,50.772,50.772,50.772c27.995,0,50.772-22.777,50.772-50.772    C289.671,401.755,271.115,380.744,246.915,376.889z M238.899,461.761c-19.155,0-34.739-15.584-34.739-34.739    c0-19.155,15.584-34.739,34.739-34.739s34.739,15.584,34.739,34.739C273.638,446.177,258.054,461.761,238.899,461.761z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M350.063,256.534h-42.756c-4.427,0-8.017,3.589-8.017,8.017s3.589,8.017,8.017,8.017h42.756    c4.427,0,8.017-3.589,8.017-8.017S354.492,256.534,350.063,256.534z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M332.961,213.778h-25.653c-4.427,0-8.017,3.589-8.017,8.017c0,4.427,3.589,8.017,8.017,8.017h25.653    c4.427,0,8.017-3.589,8.017-8.017C340.978,217.368,337.388,213.778,332.961,213.778z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M350.063,171.023h-42.756c-4.427,0-8.017,3.589-8.017,8.017c0,4.427,3.589,8.017,8.017,8.017h42.756    c4.427,0,8.017-3.589,8.017-8.017C358.08,174.612,354.492,171.023,350.063,171.023z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M332.961,128.267h-25.653c-4.427,0-8.017,3.589-8.017,8.017c0,4.427,3.589,8.017,8.017,8.017h25.653    c4.427,0,8.017-3.589,8.017-8.017C340.978,131.856,337.388,128.267,332.961,128.267z"/>
+            </g>
+        </g>
+                <g>
+            <g>
+                <path d="M350.063,85.511h-42.756c-4.427,0-8.017,3.589-8.017,8.017c0,4.427,3.589,8.017,8.017,8.017h42.756    c4.427,0,8.017-3.589,8.017-8.017C358.08,89.101,354.491,85.511,350.063,85.511z"/>
+            </g>
+        </g>
+        </svg>
+            <span id="temp"></span>
+        </div>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="#000000">
+    <path d="M1.33309 8.07433C0.92156 8.44266 0.886539 9.07485 1.25487 9.48638C1.62319 9.89791 2.25539 9.93293 2.66691 9.5646L1.33309 8.07433ZM21.3331 9.5646C21.7446 9.93293 22.3768 9.89791 22.7451 9.48638C23.1135 9.07485 23.0784 8.44266 22.6669 8.07433L21.3331 9.5646ZM12 19C11.4477 19 11 19.4477 11 20C11 20.5523 11.4477 21 12 21V19ZM12.01 21C12.5623 21 13.01 20.5523 13.01 20C13.01 19.4477 12.5623 19 12.01 19V21ZM14.6905 17.04C15.099 17.4116 15.7315 17.3817 16.1031 16.9732C16.4748 16.5646 16.4448 15.9322 16.0363 15.5605L14.6905 17.04ZM18.0539 13.3403C18.4624 13.7119 19.0949 13.682 19.4665 13.2734C19.8381 12.8649 19.8082 12.2324 19.3997 11.8608L18.0539 13.3403ZM7.96372 15.5605C7.55517 15.9322 7.52524 16.5646 7.89687 16.9732C8.2685 17.3817 8.90095 17.4116 9.3095 17.04L7.96372 15.5605ZM4.60034 11.8608C4.19179 12.2324 4.16185 12.8649 4.53348 13.2734C4.90511 13.682 5.53756 13.7119 5.94611 13.3403L4.60034 11.8608ZM2.66691 9.5646C5.14444 7.34716 8.41371 6 12 6V4C7.90275 4 4.16312 5.54138 1.33309 8.07433L2.66691 9.5646ZM12 6C15.5863 6 18.8556 7.34716 21.3331 9.5646L22.6669 8.07433C19.8369 5.54138 16.0972 4 12 4V6ZM12 21H12.01V19H12V21ZM12 16C13.0367 16 13.9793 16.3931 14.6905 17.04L16.0363 15.5605C14.9713 14.5918 13.5536 14 12 14V16ZM12 11C14.3319 11 16.4546 11.8855 18.0539 13.3403L19.3997 11.8608C17.4466 10.0842 14.8487 9 12 9V11ZM9.3095 17.04C10.0207 16.3931 10.9633 16 12 16V14C10.4464 14 9.02872 14.5918 7.96372 15.5605L9.3095 17.04ZM5.94611 13.3403C7.54544 11.8855 9.66815 11 12 11V9C9.15127 9 6.55344 10.0842 4.60034 11.8608L5.94611 13.3403Z"/>
+    </svg>
+            <span id="network"></span>
+        </div>
+    </div>
 
-        <form id="form" action="/submit">
-            <div>
-                <label for="static">
-                    <input type="radio" id="static" name="mode" value="static">
-                    Static Color
-                </label>
-                <label for="blink">
-                    <input type="radio" id="blink" name="mode" value="blink">
-                    Blink
-                </label>
-                <label for="s-blink">
-                    <input type="radio" id="s-blink" name="mode" value="s-blink">
-                    Static Blink
-                </label>
-                <label for="fade">
-                    Fade
-                    <input type="radio" id="fade" name="mode" value="fade">
-                </label>
-                <label for="rave">
-                    Rave
-                    <input type="radio" id="rave" name="mode" value="rave">
-                </label>
-                <label for="distance">
-                    <input type="radio" id="distance" name="mode" value="distance">
-                    Distance Based
-                </label>
-            </div>
-            <br>
-            <label for="color-input"><input type="color" value="#FF0000" id="color-input"/></label>
-        </form>
-    </div>   
+    <p id="message">
+        Changes are submitted automatically. When using multiple clients at once, changes do not synchronize
+        until the webpage is refreshed. Submitted changes might appear several seconds delayed depending on the
+        connection.
+    </p>
+
+    <form id="form" action="/submit">
+        <div>
+            <input type="radio" id="static" name="mode" value="static">
+            <label for="static">Static Color</label>
+
+            <input type="radio" id="blink" name="mode" value="blink">
+            <label for="blink">Blink</label>
+
+            <input type="radio" id="s-blink" name="mode" value="s-blink">
+            <label for="s-blink">Static Blink</label>
+
+            <input type="radio" id="fade" name="mode" value="fade">
+            <label for="fade">Fade</label>
+
+            <input type="radio" id="rave" name="mode" value="rave">
+            <label for="rave">Rave</label>
+
+            <input type="radio" id="distance" name="mode" value="distance">
+            <label for="distance">Distance Based</label>
+        </div>
+        <br>
+        <label for="color-input"><input type="color" value="#FF0000" id="color-input"/></label>
+    </form>
     <script src="js/script.js"></script>
 </body>
 </html>

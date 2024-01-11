@@ -1,4 +1,5 @@
 CONFIG: dict = {
+    'version': '1.0.0',
     'network': {
         'ssid': 'FRITZ!Box 4040 JE',
         'password': '58620200157781128265'

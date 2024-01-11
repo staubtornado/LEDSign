@@ -44,6 +44,10 @@ def run_server(loop, leds: list[Leds], sensor: Sensor) -> None:
     async def get_network(request) -> Response:
         return Response(CONFIG['network']['ssid'])
 
+    @app.route("/api/version", methods=['GET'])
+    async def get_version(request) -> Response:
+        return Response(CONFIG['version'])
+
     @app.route("/api/leds", methods=['POST'])
     async def set_leds(request: Request) -> Response:
         """

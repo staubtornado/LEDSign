@@ -66,3 +66,9 @@ function updateNetwork() {
 
 updateTemp();
 updateNetwork();
+
+fetch('/api/version').then(async response => {
+    document.getElementById('version').innerHTML = await response.text();
+}).catch(error => {
+    console.error(error);
+});
