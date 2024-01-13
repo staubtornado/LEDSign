@@ -32,21 +32,18 @@ def run_server(loop, leds: list[Leds], sensor: Sensor) -> None:
     async def static(request, path: str) -> Response:
         return send_file('/web/js/' + path)
 
-    @app.route("/api/temperature", methods=['GET'])
-    async def get_temperature(request) -> Response:
+    @app.route("/api/info", methods=['GET'])
+    async def get_network(request) -> Response:
         sensor_temp = ADC(4)
         conversion_factor = 3.3 / 65535
         reading = sensor_temp.read_u16() * conversion_factor
         temperature = round(27 - (reading - 0.706) / 0.001721, 2)
-        return Response(f"{temperature}°C")
 
-    @app.route("/api/network", methods=['GET'])
-    async def get_network(request) -> Response:
-        return Response(CONFIG['network']['ssid'])
-
-    @app.route("/api/version", methods=['GET'])
-    async def get_version(request) -> Response:
-        return Response(CONFIG['version'])
+        return Response({
+            'network': CONFIG['network']['ssid'],
+            'temp': f"{temperature}°C",
+            'version': CONFIG['version']
+        })
 
     @app.route("/api/leds", methods=['POST'])
     async def set_leds(request: Request) -> Response:

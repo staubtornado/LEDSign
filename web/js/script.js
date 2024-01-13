@@ -39,36 +39,20 @@ document.getElementById('form').addEventListener('change', function () {
 
 const temp = document.getElementById('temp');
 const network = document.getElementById('network');
+const version = document.getElementById('version');
 
-function updateTemp() {
-    fetch('/api/temperature')
+function updateInfo() {
+    fetch('/api/info')
         .then(response => response)
         .then(async data => {
-            temp.innerHTML = await data.text();
+            data = await data.json();
+            temp.innerHTML = data.temp;
+            network.innerHTML = data.network;
+            version.innerHTML = data.version;
         })
         .catch(error => {
             console.error(error);
         });
-    setTimeout(updateTemp, 5000);
+    setTimeout(updateInfo, 5000);
 }
-
-function updateNetwork() {
-    fetch('/api/network')
-        .then(response => response)
-        .then(async data => {
-            network.innerHTML = await data.text();
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    setTimeout(updateNetwork, 10000);
-}
-
-updateTemp();
-updateNetwork();
-
-fetch('/api/version').then(async response => {
-    document.getElementById('version').innerHTML = await response.text();
-}).catch(error => {
-    console.error(error);
-});
+updateInfo();
