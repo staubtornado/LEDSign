@@ -98,3 +98,28 @@ async def rave(leds: list[Leds]) -> None:
     for led in leds:
         await led.set_all(color, transition=False)
     await sleep(0.1)
+
+
+async def cyberpunk(leds: list[Leds]) -> None:
+    """
+    Cyberpunk mode for the LEDs
+
+    :param leds: the LEDs to change.
+    :return: None
+    """
+
+    main_color: Color = Color.from_hsv(58, 1, 1)
+
+    for led in leds:
+        await led.set_all(main_color, transition=False)
+    await sleep(randint(1, 10))
+
+    flickering_amount: int = randint(2, 3)
+    for i in range(flickering_amount):
+        for led in leds:
+            await led.set_all(Color.off(), transition=False)
+        await sleep(0.1)
+        for led in leds:
+            await led.set_all(main_color, transition=False)
+        await sleep(0.1)
+    await sleep(0.1)

@@ -6,7 +6,7 @@ from config import CONFIG
 from lib.colors import Color
 from lib.led import Leds
 from lib.microdot import Microdot, send_file, Response, Request
-from lib.modes import blink, fade, distance, rave, s_blink
+from lib.modes import blink, fade, distance, rave, s_blink, cyberpunk
 from lib.thread import Thread
 from lib.ultra_sonic import Sensor
 
@@ -91,6 +91,8 @@ def run_server(loop, leds: list[Leds], sensor: Sensor) -> None:
             thread.update(distance, leds, sensor)
         elif mode == "rave":
             thread.update(rave, leds)
+        elif mode == "cyberpunk":
+            thread.update(cyberpunk, leds)
         else:
             return Response(f"Unknown mode: {mode}", status_code=400)
         return Response("OK")
