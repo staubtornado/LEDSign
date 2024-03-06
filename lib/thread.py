@@ -29,3 +29,6 @@ class Thread:
         while self._should_run:
             await self.target(*self.args, **self.kwargs)
             await sleep(0)
+
+    def get_target(self):
+        return self.target

@@ -33,7 +33,7 @@ def run_server(loop, leds: list[Leds], sensor: Sensor) -> None:
         return send_file('/web/js/' + path)
 
     @app.route("/api/info", methods=['GET'])
-    async def get_network(request) -> Response:
+    async def get_info(request) -> Response:
         sensor_temp = ADC(4)
         conversion_factor = 3.3 / 65535
         reading = sensor_temp.read_u16() * conversion_factor
@@ -42,7 +42,8 @@ def run_server(loop, leds: list[Leds], sensor: Sensor) -> None:
         return Response({
             'network': CONFIG['network']['ssid'],
             'temp': f"{temperature}°C",
-            'version': CONFIG['version']
+            'version': CONFIG['version'],
+            'mode': thread.get_target().__name__[:-1],
         })
 
     @app.route("/api/leds", methods=['POST'])
